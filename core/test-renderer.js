@@ -125,6 +125,9 @@ const tick = () => new Promise((r) => setTimeout(r, 0));
   ok('booleans render as On/Off', [...doc.querySelectorAll('.settings-table .val-cell')].some((c) => c.textContent === 'Off' || c.textContent === 'On'));
   ok('Rust detected notice shows path', /client\.cfg/.test(doc.getElementById('rust-status').textContent));
   ok('status chip shows Rust ready', /Rust ready/.test(doc.getElementById('status-chip').textContent));
+  ok('suggested preset carries Recommended badge (from cached specs)',
+    doc.querySelector('[data-preset-card="max_quality"] .rec-badge') !== null);
+  ok('non-suggested presets carry no badge', doc.querySelectorAll('.rec-badge').length === 1);
 
   // ---- apply preset (not running) ----
   doc.querySelector('[data-apply="pvp"]').click();

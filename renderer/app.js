@@ -313,7 +313,7 @@
 
   function presetCard(p) {
     return (
-      '<div class="preset" style="--p-accent:' + esc(p.accent) + '">' +
+      '<div class="preset" data-preset-card="' + esc(p.id) + '" style="--p-accent:' + esc(p.accent) + '">' +
       svg(PRESET_ICON[p.id] || 'sliders', 'p-icon') +
       '<h3>' + esc(p.name) + '</h3>' +
       '<div class="p-tag">' + esc(p.tagline) + '</div>' +
@@ -364,9 +364,10 @@
         '<div><h2>' + esc(g.name) + '</h2><div class="gg">' + esc(g.genre || '') + ' · fully supported</div></div>' +
       '</div>' +
       '<div id="rust-status"></div>' +
-      '<div class="tools-row" id="rust-tools"></div>' +
       '<div class="section-title">' + svg('hex', 'hx') + ' Presets</div>' +
       '<div class="preset-grid">' + PRESETS.map(presetCard).join('') + '</div>' +
+      '<div class="section-title">' + svg('folder', 'hx') + ' Backups &amp; tools</div>' +
+      '<div class="tools-row" id="rust-tools"></div>' +
       '<div class="section-title">' + svg('sliders', 'hx') + ' Every setting, side by side</div>' +
       '<details class="collapsible"><summary>' + svg('chev', 'chev') +
         ' Full preset comparison (' + Object.keys(CONVARS).length + ' convars)</summary>' +
@@ -381,6 +382,30 @@
 
     renderRustTools();
     refreshRustStatus();
+    markRecommendedPreset();
+  }
+
+  /**
+   * Tag the preset matching this rig's tier with a "Recommended" badge.
+   * Uses the cached spec probe; fetches lazily if the user landed here before
+   * ever opening the Profile view. Non-critical, so failures stay silent.
+   */
+  async function markRecommendedPreset() {
+    if (!api) return;
+    try {
+      if (!specsCache) {
+        const res = await api.getSpecs();
+        if (!res || !res.ok) return;
+        specsCache = res.specs;
+      }
+      const tier = specsCache.tier || {};
+      const h3 = $content.querySelector('[data-preset-card="' + tier.suggested + '"] h3');
+      if (h3 && !h3.querySelector('.rec-badge')) {
+        h3.insertAdjacentHTML('beforeend',
+          '<span class="rec-badge" title="Best match for your ' + esc(tier.tier || '') + '-tier rig">' +
+          'Recommended</span>');
+      }
+    } catch (_) { /* badge is a nice-to-have, never break the view */ }
   }
 
   function renderRustTools() {

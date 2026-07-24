@@ -3,54 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self';" />
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; script-src 'self'; connect-src 'self';" />
   <title>Settinger — Sign in</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Login is its own centred layout; everything else inherits the tokens
-       from styles.css so the two screens feel like one product. */
+    /* Login is its own centred layout; it inherits every token from
+       styles.css so the two screens feel like one product. */
     .login-wrap {
       position: relative; z-index: 1;
       height: 100vh; display: grid; place-items: center; padding: 24px;
     }
     .login-card {
-      width: 100%; max-width: 392px;
-      background: linear-gradient(160deg, rgba(232,58,47,0.06), transparent 55%), var(--bg-panel);
+      width: 100%; max-width: 384px;
+      background: var(--bg-elevated);
       border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 38px 34px 30px;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.5);
-      /* hexagon chamfer signature, echoing the preset cards */
-      -webkit-clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
-      clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+      border-radius: 18px;
+      padding: 40px 36px 30px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
     }
-    .login-logo { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 26px; }
-    .login-logo img { width: 64px; height: 64px; filter: drop-shadow(0 0 12px var(--red-glow)); }
-    .login-logo .name { font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: 0.5px; margin-top: 12px; }
+    .login-logo { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 28px; }
+    .login-logo img { width: 56px; height: 56px; }
+    .login-logo .name { font-weight: 700; font-size: 24px; letter-spacing: -0.01em; margin-top: 14px; }
     .login-logo .name b { color: var(--red); }
-    .login-logo .sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 2.6px; color: var(--text-faint); margin-top: 3px; }
+    .login-logo .sub {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 2px;
+      color: var(--text-faint); margin-top: 3px; text-transform: uppercase;
+    }
 
-    .field { margin-bottom: 13px; }
-    .field label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 12px; font-weight: 550;
+      color: var(--text-dim); margin-bottom: 6px;
+    }
     .field input {
       width: 100%; background: var(--bg-input); border: 1px solid var(--border);
-      border-radius: var(--r-md); color: var(--text); padding: 11px 13px; font-size: 13.5px; font-family: var(--body);
+      border-radius: var(--r-md); color: var(--text); padding: 10px 13px;
+      font-size: 13.5px; font-family: var(--body);
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
     .field input::placeholder { color: var(--text-faint); }
-    .field input:focus { border-color: var(--border-bright); }
+    .field input:focus { border-color: var(--border-bright); background: var(--bg-elevated-2); outline: none; }
 
-    .login-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-    .login-actions .btn { width: 100%; padding: 12px 16px; font-size: 14px; text-decoration: none; }
+    .login-actions { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+    .login-actions .btn { width: 100%; padding: 11px 16px; font-size: 13.5px; text-decoration: none; }
 
     .dev-flag {
-      margin-top: 18px; text-align: center; font-family: var(--mono); font-size: 10.5px;
-      letter-spacing: 0.4px; color: var(--text-faint);
+      margin-top: 20px; text-align: center; font-size: 11px;
+      color: var(--text-faint);
       display: flex; align-items: center; justify-content: center; gap: 7px;
     }
-    .dev-flag .led { width: 6px; height: 6px; border-radius: 99px; background: var(--warn); box-shadow: 0 0 7px rgba(232,184,75,0.7); }
+    .dev-flag .led { width: 6px; height: 6px; border-radius: 99px; background: var(--warn); flex: none; }
   </style>
 </head>
 <body>
@@ -60,7 +62,7 @@
       <div class="login-logo">
         <img src="../assets/logo.svg" alt="Settinger logo" />
         <div class="name">Settinge<b>r</b></div>
-        <div class="sub">RIG TUNER</div>
+        <div class="sub">Rig Tuner</div>
       </div>
 
       <div class="field">
@@ -77,7 +79,7 @@
         <a class="btn ghost" href="app.html">Skip for now &rarr;</a>
       </div>
 
-      <div class="dev-flag"><span class="led"></span> DEV BUILD · authentication not yet wired</div>
+      <div class="dev-flag"><span class="led"></span> Dev build — authentication not yet wired</div>
     </section>
   </main>
 </body>
