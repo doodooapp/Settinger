@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self';" />
+  <title>Settinger — Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Login is its own centred layout; everything else inherits the tokens
+       from styles.css so the two screens feel like one product. */
+    .login-wrap {
+      position: relative; z-index: 1;
+      height: 100vh; display: grid; place-items: center; padding: 24px;
+    }
+    .login-card {
+      width: 100%; max-width: 392px;
+      background: linear-gradient(160deg, rgba(232,58,47,0.06), transparent 55%), var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 38px 34px 30px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.5);
+      /* hexagon chamfer signature, echoing the preset cards */
+      -webkit-clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+      clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+    }
+    .login-logo { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 26px; }
+    .login-logo img { width: 64px; height: 64px; filter: drop-shadow(0 0 12px var(--red-glow)); }
+    .login-logo .name { font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: 0.5px; margin-top: 12px; }
+    .login-logo .name b { color: var(--red); }
+    .login-logo .sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 2.6px; color: var(--text-faint); margin-top: 3px; }
+
+    .field { margin-bottom: 13px; }
+    .field label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+    .field input {
+      width: 100%; background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: var(--r-md); color: var(--text); padding: 11px 13px; font-size: 13.5px; font-family: var(--body);
+    }
+    .field input::placeholder { color: var(--text-faint); }
+    .field input:focus { border-color: var(--border-bright); }
+
+    .login-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .login-actions .btn { width: 100%; padding: 12px 16px; font-size: 14px; text-decoration: none; }
+
+    .dev-flag {
+      margin-top: 18px; text-align: center; font-family: var(--mono); font-size: 10.5px;
+      letter-spacing: 0.4px; color: var(--text-faint);
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .dev-flag .led { width: 6px; height: 6px; border-radius: 99px; background: var(--warn); box-shadow: 0 0 7px rgba(232,184,75,0.7); }
+  </style>
+</head>
+<body>
+  <div class="hex-backdrop"></div>
+  <main class="login-wrap">
+    <section class="login-card">
+      <div class="login-logo">
+        <img src="../assets/logo.svg" alt="Settinger logo" />
+        <div class="name">Settinge<b>r</b></div>
+        <div class="sub">RIG TUNER</div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+      </div>
+
+      <div class="login-actions">
+        <a class="btn primary" href="app.html">Log in</a>
+        <a class="btn ghost" href="app.html">Skip for now &rarr;</a>
+      </div>
+
+      <div class="dev-flag"><span class="led"></span> DEV BUILD · authentication not yet wired</div>
+    </section>
+  </main>
+</body>
+</html>

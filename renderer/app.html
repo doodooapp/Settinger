@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self';" />
+  <title>Settinger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hex-backdrop"></div>
+
+  <div class="shell">
+    <!-- ------------------------------ Sidebar ------------------------------ -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img class="logo" src="../assets/logo.svg" alt="Settinger" />
+        <div>
+          <div class="wordmark">Settinge<b>r</b></div>
+          <span class="tag">RIG TUNER</span>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="search" type="text" placeholder="Search games…" autocomplete="off" spellcheck="false" />
+      </div>
+
+      <div class="list-label">Games</div>
+      <nav class="game-list" id="game-list" aria-label="Games"></nav>
+
+      <div class="sidebar-foot">
+        <button class="profile-btn" id="profile-btn">
+          <span class="avatar" id="profile-avatar">PC</span>
+          <div>
+            <div class="pn">My Rig</div>
+            <div class="ps" id="profile-sub">View specs</div>
+          </div>
+        </button>
+        <div class="ver">v0.1.0 · DEV</div>
+      </div>
+    </aside>
+
+    <!-- ------------------------------ Main ------------------------------ -->
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="crumb" id="crumb">SETTINGER</div>
+          <h1 id="view-title">Profile</h1>
+        </div>
+        <div class="spacer"></div>
+        <span class="chip" id="status-chip"><span class="led"></span> <span id="status-text">Loading…</span></span>
+      </header>
+
+      <section class="content" id="content"></section>
+    </main>
+  </div>
+
+  <!-- Data + logic. rust-presets.js sets window.RUSTPRESETS; games-data.js sets window.GAMES. -->
+  <script src="games-data.js"></script>
+  <script src="../core/rust-presets.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

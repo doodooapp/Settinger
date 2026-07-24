@@ -1,0 +1,19 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Settinger logo">
+  <defs>
+    <linearGradient id="hexRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF5247"/>
+      <stop offset="1" stop-color="#D71F16"/>
+    </linearGradient>
+  </defs>
+  <!-- pointy-top hexagon border -->
+  <polygon
+    points="50,6 88.1,28 88.1,72 50,94 11.9,72 11.9,28"
+    fill="#16181F"
+    stroke="url(#hexRed)"
+    stroke-width="7"
+    stroke-linejoin="round"/>
+  <!-- white S -->
+  <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+        font-family="'Chakra Petch','Segoe UI',Arial,sans-serif"
+        font-size="52" font-weight="700" fill="#FFFFFF">S</text>
+</svg>

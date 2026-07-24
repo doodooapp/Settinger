@@ -1,0 +1,22 @@
+{
+  "name": "settinger",
+  "productName": "Settinger",
+  "version": "0.1.0",
+  "description": "Settinger - the go-to desktop app for gamers to get the best in-game settings for any game based on their specs.",
+  "main": "main.js",
+  "author": "Settinger",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node core/test.js && node core/test-renderer.js",
+    "pack:win": "electron-packager . Settinger --platform=win32 --arch=x64 --out=dist --asar --overwrite"
+  },
+  "dependencies": {
+    "systeminformation": "^5.23.5"
+  },
+  "devDependencies": {
+    "@electron/packager": "^18.3.6",
+    "electron": "^31.7.5",
+    "jsdom": "^29.1.1"
+  }
+}
