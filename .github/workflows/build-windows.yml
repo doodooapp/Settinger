@@ -1,0 +1,52 @@
+name: Build Windows EXE
+
+# Every push produces a fresh Windows build and pins it to the "dev-build"
+# release, so there is always one stable download link for the latest EXE.
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Package Windows app
+        run: npm run pack:win
+
+      - name: Zip the build
+        run: Compress-Archive -Path dist/Settinger-win32-x64 -DestinationPath Settinger-win-x64.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Settinger-win-x64
+          path: Settinger-win-x64.zip
+
+      - name: Publish dev-build release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete dev-build --cleanup-tag --yes || true
+          gh release create dev-build Settinger-win-x64.zip \
+            --prerelease \
+            --target "$GITHUB_SHA" \
+            --title "Settinger dev build (${GITHUB_SHA:0:7})" \
+            --notes "Auto-built from commit ${GITHUB_SHA} on $(date -u +'%Y-%m-%d %H:%M UTC'). Unzip and run Settinger.exe."

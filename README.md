@@ -6,13 +6,20 @@ Settinger reads your PC's hardware, sizes up a performance "tier," and applies c
 
 ---
 
-## Quick start
+## Download the Windows EXE
+
+Every push auto-builds a fresh Windows app. Grab the newest one any time from
+**GitHub → Releases → `dev-build`** — download `Settinger-win-x64.zip`, unzip it
+anywhere, and run `Settinger.exe` inside the folder.
+
+## Quick start (from source)
 
 > Requires **Node.js 18+** installed.
 
 ```bash
 npm install      # installs Electron + systeminformation
 npm start        # launches the desktop app
+npm run pack:win # builds the Windows exe into dist/
 ```
 
 The app opens on a (skippable) login screen — click **Skip for now** to go straight in during this dev phase.
